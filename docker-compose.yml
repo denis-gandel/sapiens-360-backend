@@ -1,0 +1,15 @@
+services:
+    sapiens-db:
+        image: postgres:latest
+        container_name: postgres
+        environment:
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_DATABASE}
+        ports:
+            - "${DB_PORT}:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/database
+
+volumes:
+    postgres_data:
