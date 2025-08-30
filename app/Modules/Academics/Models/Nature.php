@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Modules\Academics\Models\Institute;
 
 class Nature extends Model
 {
@@ -12,4 +13,9 @@ class Nature extends Model
         'name',
         'is_active',
     ];
+
+    public function institutes()
+    {
+        return $this->hasMany(Institute::class);
+    }
 }

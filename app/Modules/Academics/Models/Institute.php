@@ -16,6 +16,9 @@ class Institute extends Model
         'logo',
         'email',
         'phone',
+        'type_id',
+        'nature_id',
+        'period_id',
         'is_active',
     ];
 
