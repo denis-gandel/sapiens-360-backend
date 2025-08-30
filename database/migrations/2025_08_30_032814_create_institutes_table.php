@@ -20,12 +20,19 @@ return new class extends Migration
             $table->string('logo');
             $table->string('email')->unique();
             $table->string('phone');
+            $table->integer('established_year');
             $table->integer('type_id');
             $table->integer('nature_id');
             $table->integer('period_id');
+            $table->integer('country_id');
+            $table->integer('state_id');
+            $table->integer('city_id');
+            $table->integer('district_id')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['name', 'location', 'country_id', 'state_id', 'city_id', 'district_id']);
 
             $table->foreign('type_id')
                 ->references('id')->on('types')
@@ -35,6 +42,18 @@ return new class extends Migration
                 ->onDelete('restrict');
             $table->foreign('period_id')
                 ->references('id')->on('periods')
+                ->onDelete('restrict');
+            $table->foreign('country_id')
+                ->references('id')->on('countries')
+                ->onDelete('restrict');
+            $table->foreign('state_id')
+                ->references('id')->on('states')
+                ->onDelete('restrict');
+            $table->foreign('city_id')
+                ->references('id')->on('cities')
+                ->onDelete('restrict');
+            $table->foreign('district_id')
+                ->references('id')->on('districts')
                 ->onDelete('restrict');
         });
     }

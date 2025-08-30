@@ -2,4 +2,9 @@
 
 namespace App\Modules\Academics\Http\Controllers;
 
-use App\Modules\Academics\Models\Institute;
+use App\Http\Controllers\Controller;
+
+class InstituteController extends Controller
+{
+
+}

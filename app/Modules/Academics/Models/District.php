@@ -4,19 +4,18 @@ namespace App\Modules\Academics\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Type extends Model
+class District extends Model
 {
-
-    protected $table = 'types';
+    protected $table = 'districts';
 
     protected $fillable = [
         'name',
+        'state_id',
         'is_active',
     ];
 
-    public function institutes()
+    public function city()
     {
-        return $this->hasMany(Institute::class);
+        return $this->belongsTo(City::class);
     }
-
 }

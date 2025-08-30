@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Academics\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Modules\Academics\Models\Institute;
 
 class Period extends Model
 {
