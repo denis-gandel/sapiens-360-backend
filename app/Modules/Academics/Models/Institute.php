@@ -9,6 +9,9 @@ class Institute extends Model
 {
     protected $table = 'institutes';
 
+    protected $keyType = 'uuid';
+    public $incrementing = false;
+
     protected $fillable = [
         'name',
         'subdomain',
@@ -17,6 +20,8 @@ class Institute extends Model
         'email',
         'phone',
         'established_year',
+        'start_date',
+        'end_date',
         'type_id',
         'nature_id',
         'period_id',

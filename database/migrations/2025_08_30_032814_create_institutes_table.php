@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->integer('established_year');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->integer('type_id');
             $table->integer('nature_id');
             $table->integer('period_id');

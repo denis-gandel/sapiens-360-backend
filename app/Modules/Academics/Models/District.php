@@ -10,7 +10,7 @@ class District extends Model
 
     protected $fillable = [
         'name',
-        'state_id',
+        'city_id',
         'is_active',
     ];
 

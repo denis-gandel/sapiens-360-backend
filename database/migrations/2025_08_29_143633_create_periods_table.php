@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('periods', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->decimal('duration', 10, 2);
+            $table->integer('duration')->min(1)->max(12);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
