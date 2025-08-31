@@ -79,4 +79,15 @@ class UserService
 
         return $user->update(['is_active' => false]);
     }
+
+    public function verifyCredentials(string $email, string $password)
+    {
+        $user = User::where('email', $email)->first();
+
+        if (!$user || !Hash::check($password, $user->password)) {
+            throw new \DomainException('Invalid email or password');
+        }
+
+        return $user;
+    }
 }

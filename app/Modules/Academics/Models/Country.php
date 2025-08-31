@@ -4,19 +4,17 @@ namespace App\Modules\Academics\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Type extends Model
+class Country extends Model
 {
-
-    protected $table = 'types';
+    protected $table = 'countries';
 
     protected $fillable = [
         'name',
         'is_active',
     ];
 
-    public function institutes()
+    public function states()
     {
-        return $this->hasMany(Institute::class);
+        return $this->hasMany(State::class);
     }
-
 }
