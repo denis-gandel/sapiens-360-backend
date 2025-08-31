@@ -3,6 +3,7 @@
 namespace App\Modules\Courses\Services\Bases;
 
 use App\Modules\Courses\Models\Course;
+use App\Modules\Courses\Models\Subject;
 use App\Modules\Courses\Services\Contracts\ICourseService;
 use App\Services\Bases\BaseService;
 
@@ -20,6 +21,26 @@ abstract class BaseCourseService extends BaseService implements ICourseService
             ->where('is_active', true)
             ->firstOrFail();
 
-        return $course->subjects()->where('is_active', true)->get();
+        if (!$course) {
+            return [];
+        }
+
+        if (!$course['subjects']) {
+            return [];
+        }
+
+        $subjects = [];
+
+        foreach ($course['subjects'] as $subjectId) {
+            $subject = Subject::where('id', $subjectId)
+                ->where('tenant_id', $tenantId)
+                ->where('is_active', true)
+                ->first();
+
+            if ($subject) {
+                $subjects[] = $subject;
+            }
+        }
+        return $subjects;
     }
 }

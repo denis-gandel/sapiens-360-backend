@@ -40,10 +40,12 @@ abstract class BaseCourseController extends BaseController implements ICourseCon
 
     public function getSubjects(string $id, Request $request)
     {
-        $tenantId = $request->query('tenantId');
+        $tenant = $request->query('tenant');
 
-        if ($tenantId) {
-            return $this->courseService->getSubjects($id, $tenantId);
+        if (!$tenant) {
+            return response()->json(['error' => 'Tenant parameter is required'], 400);
         }
+
+        return $this->courseService->getSubjects($id, $tenant);
     }
 }
