@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Modules\Courses\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use App\Modules\Academics\Models\Institute;
+
+class Level extends Model
+{
+    protected $table = 'levels';
+
+    protected $fillable = [
+        'name',
+        'description',
+        'code',
+        'order',
+        'is_active',
+        'tenant_id',
+    ];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'level_id');
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class, 'level_id');
+    }
+
+    public function institute()
+    {
+        return $this->belongsTo(Institute::class, 'tenant_id');
+    }
+}
