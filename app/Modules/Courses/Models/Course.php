@@ -9,7 +9,7 @@ class Course extends Model
 {
     protected $table = 'courses';
 
-    protected $keyType = 'string';
+    protected $keyType = 'uuid';
     public $incrementing = false;
 
     protected $fillable = [
@@ -18,7 +18,6 @@ class Course extends Model
         'code',
         'period',
         'level_id',
-        'program_id',
         'is_active',
         'subjects',
         'tenant_id',
@@ -31,11 +30,6 @@ class Course extends Model
     public function level()
     {
         return $this->belongsTo(Level::class, 'level_id');
-    }
-
-    public function program()
-    {
-        return $this->belongsTo(Program::class, 'program_id');
     }
 
     public function institute()

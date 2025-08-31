@@ -36,13 +36,15 @@ abstract class BaseService implements IService
         return $query->get();
     }
 
-    public function getBy(string $column, string|int $value, bool $fail = true, bool $onlyActive = true)
+    public function getBy(string $column, string|int $value, bool $fail = true, bool $onlyActive = true, array $filters = [])
     {
         $query = $this->model->where($column, $value);
 
         if ($onlyActive) {
             $query->where('is_active', true);
         }
+
+        $query->where($filters);
 
         return $fail ? $query->firstOrFail() : $query->first();
     }

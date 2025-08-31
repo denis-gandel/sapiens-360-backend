@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('levels', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('code');
@@ -21,8 +22,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('tenant_id');
+            $table->uuid('program_id');
 
             $table->foreign('tenant_id')->references('id')->on('institutes')->onDelete('cascade');
+            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
         });
     }
 

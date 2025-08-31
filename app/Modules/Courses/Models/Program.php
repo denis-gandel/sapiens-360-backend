@@ -9,6 +9,9 @@ class Program extends Model
 {
     protected $table = 'programs';
 
+    protected $keyType = 'uuid';
+    public $incrementing = false;
+
     protected $fillable = [
         'name',
         'description',
@@ -20,9 +23,9 @@ class Program extends Model
         'tenant_id',
     ];
 
-    public function courses()
+    public function levels()
     {
-        return $this->hasMany(Course::class, 'program_id');
+        return $this->hasMany(Level::class, 'program_id');
     }
 
     public function institute()

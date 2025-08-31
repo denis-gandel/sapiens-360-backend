@@ -9,6 +9,9 @@ class Level extends Model
 {
     protected $table = 'levels';
 
+    protected $keyType = 'uuid';
+    public $incrementing = false;
+
     protected $fillable = [
         'name',
         'description',
@@ -16,6 +19,7 @@ class Level extends Model
         'order',
         'is_active',
         'tenant_id',
+        'program_id',
     ];
 
     public function courses()
@@ -23,9 +27,9 @@ class Level extends Model
         return $this->hasMany(Course::class, 'level_id');
     }
 
-    public function subjects()
+    public function program()
     {
-        return $this->hasMany(Subject::class, 'level_id');
+        return $this->belongsTo(Program::class, 'program_id');
     }
 
     public function institute()

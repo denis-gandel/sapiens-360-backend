@@ -113,6 +113,8 @@ Route::prefix("courses")->group(function () {
         Route::post('/', [CourseController::class, 'store']);
         Route::put('/{id}', [CourseController::class, 'update']);
         Route::delete('/{id}', [CourseController::class, 'destroy']);
+
+        Route::get('/{id}/subjects', [CourseController::class, 'getSubjects']);
     });
 
     Route::prefix('subjects')->group(function () {
