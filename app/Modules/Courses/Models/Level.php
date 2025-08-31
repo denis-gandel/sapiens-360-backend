@@ -17,7 +17,6 @@ class Level extends Model
         'description',
         'code',
         'order',
-        'is_active',
         'tenant_id',
         'program_id',
     ];

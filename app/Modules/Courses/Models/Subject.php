@@ -18,7 +18,6 @@ class Subject extends Model
         'code',
         'credits',
         'prerequisites',
-        'is_active',
         'tenant_id',
     ];
 

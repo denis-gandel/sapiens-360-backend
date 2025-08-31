@@ -19,7 +19,6 @@ class Program extends Model
         'degree_type',
         'duration_type',
         'periods',
-        'is_active',
         'tenant_id',
     ];
 

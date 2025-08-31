@@ -18,7 +18,6 @@ class Course extends Model
         'code',
         'period',
         'level_id',
-        'is_active',
         'subjects',
         'tenant_id',
     ];
