@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Academics\Http\Controllers\Abstracts;
+namespace App\Http\Controllers\Bases;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Academics\Http\Controllers\Interfaces\IController;
-use App\Modules\Academics\Services\Interfaces\IService;
+use App\Http\Controllers\Contracts\IController;
+use App\Services\Contracts\IService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Exception;

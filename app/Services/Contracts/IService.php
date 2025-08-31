@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Academics\Services\Interfaces;
+namespace App\Services\Contracts;
 
 interface IService
 {

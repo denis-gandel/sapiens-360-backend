@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\Academics\Services\Abstracts;
+namespace App\Services\Bases;
 
-use App\Modules\Academics\Services\Interfaces\IService;
+use App\Services\Contracts\IService;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseService implements IService
