@@ -3,7 +3,7 @@
 namespace App\Modules\Academics\Services\Concretes;
 
 use App\Modules\Academics\Models\Institute;
-use App\Modules\Academics\Services\Abstracts\BaseService;
+use App\Services\Bases\BaseService;
 
 class InstituteService extends BaseService
 {

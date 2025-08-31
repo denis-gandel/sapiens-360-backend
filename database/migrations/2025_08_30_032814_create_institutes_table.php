@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('subdomain')->unique();
             $table->string('location');
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->string('email')->unique();
             $table->string('phone');
             $table->integer('established_year');

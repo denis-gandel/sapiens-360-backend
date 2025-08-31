@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Academics\Http\Controllers\Abstracts;
+namespace App\Http\Controllers\Bases;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Academics\Http\Controllers\Interfaces\IController;
-use App\Modules\Academics\Services\Interfaces\IService;
+use App\Http\Controllers\Contracts\IController;
+use App\Services\Contracts\IService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Exception;
@@ -47,12 +47,13 @@ abstract class BaseController extends Controller implements IController
         $value = $request->query('value');
         $fail = $request->query('fail') ?? true;
         $onlyActive = $request->query('onlyActive') ?? true;
+        $filters = $request->query('filters') ?? [];
 
         if (!$column || !$value) {
             return response()->json(['message' => 'Column and value are required'], 400);
         }
 
-        $data = $this->service->getBy($column, $value, $fail, $onlyActive);
+        $data = $this->service->getBy($column, $value, $fail, $onlyActive, $filters);
 
         if (!$data) {
             return response()->json(['message' => 'Entity not found'], 404);

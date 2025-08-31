@@ -3,7 +3,7 @@
 namespace App\Modules\Academics\Services\Concretes;
 
 use App\Modules\Academics\Models\Nature;
-use App\Modules\Academics\Services\Abstracts\BaseService;
+use App\Services\Bases\BaseService;
 
 class NatureService extends BaseService
 {

@@ -2,8 +2,12 @@
 
 namespace App\Modules\Academics\Models;
 
+use App\Modules\Courses\Models\Course;
+use App\Modules\Courses\Models\Level;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Users\Models\User;
+use App\Modules\Courses\Models\Program;
+use App\Modules\Courses\Models\Subject;
 
 class Institute extends Model
 {
@@ -70,5 +74,25 @@ class Institute extends Model
     public function users()
     {
         return $this->hasMany(User::class, 'tenant_id');
+    }
+
+    public function programs()
+    {
+        return $this->hasMany(Program::class, 'tenant_id');
+    }
+
+    public function levels()
+    {
+        return $this->hasMany(Level::class, 'tenant_id');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'tenant_id');
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class, 'tenant_id');
     }
 }

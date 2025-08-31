@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Academics\Http\Controllers\Interfaces;
+namespace App\Http\Controllers\Contracts;
 
 use Illuminate\Http\Request;
 

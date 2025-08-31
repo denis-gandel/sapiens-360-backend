@@ -2,7 +2,7 @@
 
 namespace App\Modules\Academics\Http\Controllers\Concretes;
 
-use App\Modules\Academics\Http\Controllers\Abstracts\BaseController;
+use App\Http\Controllers\Bases\BaseController;
 use App\Modules\Academics\Services\Concretes\CountryService;
 
 class CountryController extends BaseController
