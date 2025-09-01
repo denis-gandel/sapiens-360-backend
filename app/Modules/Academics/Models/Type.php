@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Academics\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,5 +13,10 @@ class Type extends Model
         'name',
         'is_active',
     ];
+
+    public function institutes()
+    {
+        return $this->hasMany(Institute::class);
+    }
 
 }

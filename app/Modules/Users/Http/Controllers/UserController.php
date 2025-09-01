@@ -56,7 +56,7 @@ class UserController extends Controller
                 'image_url' => 'nullable|string|max:255',
                 'address' => 'nullable|string|max:255',
                 'phone' => 'nullable|string|max:255',
-                'password' => 'required|string|min:8|confirmed',
+                'password' => 'required|string|min:8',
             ]
         );
 
@@ -119,7 +119,7 @@ class UserController extends Controller
                 'image_url' => 'string|max:255',
                 'address' => 'string|max:255',
                 'phone' => 'string|max:255',
-                'password' => 'string|min:8|confirmed',
+                'password' => 'string|min:8',
             ]
         );
 
@@ -154,5 +154,31 @@ class UserController extends Controller
         }
 
         return response()->json("User deleted", 204);
+    }
+
+    public function verifyCredentials(Request $request)
+    {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'email' => 'required|email',
+                'password' => 'required|string|min:8',
+            ]
+        );
+
+        if ($validate->fails()) {
+            return response()->json(['errors' => $validate->errors()], 422);
+        }
+
+        try {
+            $user = $this->userService->verifyCredentials(
+                $request->input('email'),
+                $request->input('password')
+            );
+        } catch (\DomainException $e) {
+            return response()->json(['message' => $e->getMessage()], 401);
+        }
+
+        return response()->json($user, 200);
     }
 }
