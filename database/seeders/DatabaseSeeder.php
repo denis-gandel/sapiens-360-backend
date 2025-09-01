@@ -10,14 +10,21 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void {
+    public function run(): void
+    {
         $this->call([
+            // Academics
             TypeSeeder::class,
             NatureSeeder::class,
             PeriodSeeder::class,
             CountrySeeder::class,
             StateSeeder::class,
-            CitySeeder::class
+            CitySeeder::class,
+
+            // Authorization
+            RoleSeeder::class,
+            CategorySeeder::class,
+            PermissionSeeder::class
         ]);
     }
 }
