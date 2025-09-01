@@ -24,7 +24,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'Eliminar usuarios', 'description' => 'Eliminar usuarios del sistema', 'path' => '/', 'code' => 'DELETE_USERS', 'category_id' => 5],
             ['name' => 'Visualizar perfil del instituto', 'description' => 'Permite la visualizacion y edicion de la informacion del instituto', 'path' => '/', 'code' => 'INSTITUTE_SHOW', 'category_id' => 6],
             ['name' => 'Crear niveles', 'description' => 'Crear nuevos niveles academicos en el sistema', 'path' => '/', 'code' => 'CREATE_ACADEMIC_LEVELS', 'category_id' => 7],
-            ['name' => 'SUBIR TAREAS', 'description' => 'Permite a los estudiantes poder subir la resolucion de sus tareas.', 'path' => '/', 'code' => 'SUBMIT_ASSIGNMENT', 'category_id' => 4],
+            ['name' => 'Subir tareas', 'description' => 'Permite a los estudiantes poder subir la resolucion de sus tareas.', 'path' => '/', 'code' => 'SUBMIT_ASSIGNMENT', 'category_id' => 4],
             ['name' => 'Revision de tareas', 'description' => 'Permite a los docentes revisar y asignar un puntaje a la tarea enviada por el estudiante.', 'path' => '/', 'code' => 'REVIEW_ASSIGNMENT', 'category_id' => 4],
         ];
 

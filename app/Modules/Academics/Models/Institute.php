@@ -2,6 +2,7 @@
 
 namespace App\Modules\Academics\Models;
 
+use App\Modules\Authorization\Models\RolePermissions;
 use App\Modules\Courses\Models\Course;
 use App\Modules\Courses\Models\Level;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +37,7 @@ class Institute extends Model
         'is_active',
     ];
 
+    // Academics
     public function type()
     {
         return $this->belongsTo(Type::class);
@@ -71,11 +73,13 @@ class Institute extends Model
         return $this->belongsTo(District::class);
     }
 
+    // Users
     public function users()
     {
         return $this->hasMany(User::class, 'tenant_id');
     }
 
+    // Courses
     public function programs()
     {
         return $this->hasMany(Program::class, 'tenant_id');
@@ -94,5 +98,11 @@ class Institute extends Model
     public function subjects()
     {
         return $this->hasMany(Subject::class, 'tenant_id');
+    }
+
+    // Authorization
+    public function rolePermissions()
+    {
+        return $this->hasMany(RolePermissions::class, 'tenant_id');
     }
 }
