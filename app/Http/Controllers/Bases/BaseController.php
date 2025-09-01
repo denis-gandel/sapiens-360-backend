@@ -28,8 +28,7 @@ abstract class BaseController extends Controller implements IController
         $direction = in_array($direction, ['asc', 'desc']) ? $direction : 'asc';
 
         $orderBy = $request->query('orderBy', 'name');
-        $allowedColumns = ['name', 'created_at', 'updated_at'];
-        $orderBy = in_array($orderBy, $allowedColumns) ? $orderBy : 'name';
+        $orderBy = $orderBy ? $orderBy : 'name';
 
         $page = (int) ($request->query('page', 0));
         $size = (int) ($request->query('size', 0));
