@@ -13,6 +13,7 @@ class User extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'name',
         'firstnames',
         'lastnames',
         'shortname',

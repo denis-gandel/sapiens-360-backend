@@ -16,15 +16,16 @@ use App\Modules\Courses\Http\Controllers\Concretes\CourseController;
 use App\Modules\Courses\Http\Controllers\Concretes\LevelController;
 use App\Modules\Courses\Http\Controllers\Concretes\ProgramController;
 use App\Modules\Courses\Http\Controllers\Concretes\SubjectController;
-use App\Modules\Users\Http\Controllers\UserController;
+use App\Modules\Users\Http\Controllers\Concretes\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix("users")->group(function () {
     Route::get('/', [UserController::class, 'index']);
-    Route::get('/{userId}', [UserController::class, 'show']);
+    Route::get('/by', [UserController::class, 'show']);
     Route::post('/', [UserController::class, 'store']);
-    Route::put('/{userId}', [UserController::class, 'update']);
-    Route::delete('/{userId}', [UserController::class, 'destroy']);
+    Route::put('/{id}', [UserController::class, 'update']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
+
     Route::post('/credentials/verify', [UserController::class, 'verifyCredentials']);
 });
 
