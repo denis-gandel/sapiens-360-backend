@@ -1,33 +1,22 @@
 <?php
 
-namespace App\Modules\Users\Services;
+namespace App\Modules\Users\Services\Bases;
 
 use App\Modules\Users\Models\User;
+use App\Modules\Users\Services\Contracts\IUserService;
+use App\Services\Bases\BaseService;
 use Illuminate\Support\Facades\Hash;
 
-class UserService
+abstract class BaseUserService extends BaseService implements IUserService
 {
-    public function getAllUsers(?string $tenantId, int $pageNumber, int $pageSize)
+    protected User $user;
+    public function __construct(User $model)
     {
-        if (!$tenantId) {
-            return User::where('is_active', true)->orderBy('lastnames')->orderBy('firstnames')->paginate($pageSize, ['*'], 'page', $pageNumber);
-        }
-
-        return User::where('tenant_id', $tenantId)
-            ->where('is_active', true)
-            ->orderBy('lastnames')->orderBy('firstnames')->paginate($pageSize, ['*'], 'page', $pageNumber);
+        parent::__construct($model);
+        $this->user = $model;
     }
 
-    public function getUserById(?string $tenantId, string $userId)
-    {
-        if (!$tenantId) {
-            return User::where('is_active', true)->find($userId);
-        }
-
-        return User::where('tenant_id', $tenantId)->where('is_active', true)->find($userId);
-    }
-
-    public function createUser(array $data): User
+    public function create(array $data, ?string $uniqueColumn = null)
     {
         $exists = User::where('email', $data['email'])->get();
 
@@ -37,6 +26,7 @@ class UserService
             } else {
                 $user = $exists->first();
                 $user->is_active = true;
+                $user->name = $data['lastnames'] . ' ' . $data['firstnames'];
                 $user->firstnames = $data['firstnames'];
                 $user->lastnames = $data['lastnames'];
                 $user->shortname = $data['shortname'];
@@ -52,15 +42,20 @@ class UserService
         }
 
         $data['password'] = Hash::make($data['password']);
+        $data['name'] = $data['lastnames'] . ' ' . $data['firstnames'];
         return User::create($data);
     }
 
-    public function updateUser(string $userId, string $tenantId, array $data): User
+    public function update(string|int $id, array $data, ?string $uniqueColumn = null)
     {
-        $user = $this->getUserById($tenantId, $userId);
+        $user = $this->getBy('id', $id);
 
         if (!$user) {
             throw new \DomainException('User not found');
+        }
+
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
         }
 
         $user->fill($data);
@@ -69,23 +64,12 @@ class UserService
         return $user;
     }
 
-    public function deleteUser(string $userId, string $tenantId): bool
-    {
-        $user = $this->getUserById($tenantId, $userId);
-
-        if (!$user) {
-            throw new \DomainException('User not found');
-        }
-
-        return $user->update(['is_active' => false]);
-    }
-
     public function verifyCredentials(string $email, string $password)
     {
         $user = User::where('email', $email)->first();
 
         if (!$user || !Hash::check($password, $user->password)) {
-            throw new \DomainException('Invalid email or password');
+            throw new \Illuminate\Validation\UnauthorizedException('Invalid email or password');
         }
 
         return $user;

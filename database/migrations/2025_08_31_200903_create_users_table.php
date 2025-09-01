@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid("id")->primary()->default(DB::raw('uuid_generate_v4()'));
+            $table->string("name");
             $table->string("firstnames");
             $table->string("lastnames");
             $table->string("shortname");
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->string("phone")->nullable();
             $table->string("email")->unique();
             $table->string("password");
-            $table->char("gender");
+            $table->char("gender", 1);
             $table->date("birthdate")->nullable();
             $table->integer("role_id");
             $table->boolean('is_active')->default(true);
