@@ -6,6 +6,7 @@ use Closure;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class JwtMiddleware
@@ -28,7 +29,11 @@ class JwtMiddleware
             return $next($request);
         }
 
+        Log::info('Cookies recibidas', $request->cookies->all());
+
         $token = $request->cookie('sapiens_360_gwEjbpFRQsyFZm4VVYBTSk5zP7DmM9tpzAAmW1f4FvndB2HvJmyKytdFYkq2bK53');
+
+        Log::info('Token recibido', ['token' => $token]);
 
         if (!$token) {
             return response()->json(['message' => 'Unauthenticated.'], 401);

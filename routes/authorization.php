@@ -7,7 +7,7 @@ use App\Modules\Authorization\Http\Controllers\Concretes\RoleController;
 use App\Modules\Authorization\Http\Controllers\Concretes\RolePermissionsController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix("authorization")->group(function () {
+Route::prefix("authorization")->middleware(JwtMiddleware::class)->group(function () {
     Route::prefix('roles')->group(function () {
         Route::get('/', [RoleController::class, 'index']);
         Route::get('/by', [RoleController::class, 'show']);
@@ -30,15 +30,5 @@ Route::prefix("authorization")->group(function () {
         Route::post('/', [PermissionController::class, 'store']);
         Route::put('/{id}', [PermissionController::class, 'update']);
         Route::delete('/{id}', [PermissionController::class, 'destroy']);
-    });
-
-    Route::prefix('role-permissions')->group(function () {
-        Route::get('/', [RolePermissionsController::class, 'index']);
-        Route::get('/by', [RolePermissionsController::class, 'show']);
-        Route::post('/', [RolePermissionsController::class, 'store']);
-        Route::put('/{id}', [RolePermissionsController::class, 'update']);
-        Route::delete('/{id}', [RolePermissionsController::class, 'destroy']);
-
-        Route::get('/role/{id}/permissions', [RolePermissionsController::class, 'getPermissionsByRole']);
     });
 });
