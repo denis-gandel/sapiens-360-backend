@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Authentication\Http\Controllers\Contracts\IAuthenticationController;
 use App\Modules\Authentication\Services\Concretes\AuthenticationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 abstract class BaseAuthenticationController extends Controller implements IAuthenticationController
@@ -32,6 +33,19 @@ abstract class BaseAuthenticationController extends Controller implements IAuthe
         $password = $request->input('password');
 
         $jwt = $this->service->login($email, $password);
-        return response()->json($jwt, 201);
+
+        return response()
+            ->json(['message' => 'Login exitoso'])
+            ->cookie(
+                'sapiens_360_gwEjbpFRQsyFZm4VVYBTSk5zP7DmM9tpzAAmW1f4FvndB2HvJmyKytdFYkq2bK53',              // nombre
+                $jwt,                     // valor
+                60 * 24,                    // duración en minutos
+                '/',                        // path
+                null,                       // dominio (null usa el actual)
+                true,                       // secure (true si usas https)
+                true,                       // httpOnly
+                false,                      // raw
+                'None'                      // SameSite: 'Lax', 'Strict', 'None'
+            );
     }
 }

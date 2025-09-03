@@ -7,5 +7,6 @@ use Illuminate\Http\Request;
 
 interface IUserController extends IController
 {
-    public function verifyCredentials(Request $request);
+    function verifyCredentials(Request $request);
+    function me(Request $request);
 }

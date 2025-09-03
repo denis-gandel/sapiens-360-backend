@@ -5,6 +5,7 @@ namespace App\Modules\Users\Http\Controllers\Bases;
 use App\Http\Controllers\Bases\BaseController;
 use App\Modules\Users\Http\Controllers\Contracts\IUserController;
 use App\Modules\Users\Services\Concretes\UserService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -43,5 +44,19 @@ abstract class BaseUserController extends BaseController implements IUserControl
         }
 
         return response()->json(['user' => $user], 200);
+    }
+
+    public function me(Request $request)
+    {
+        $userId = $request->attributes->get('user_id');
+        $tenantId = $request->attributes->get('tenant_id');
+
+        $user = $this->userService->getBy('id', $userId, true, true, ['tenant_id' => $tenantId]);
+
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        return response()->json($user, 200);
     }
 }

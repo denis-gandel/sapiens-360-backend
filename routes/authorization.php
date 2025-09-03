@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\JwtMiddleware;
 use App\Modules\Authorization\Http\Controllers\Concretes\CategoryController;
 use App\Modules\Authorization\Http\Controllers\Concretes\PermissionController;
 use App\Modules\Authorization\Http\Controllers\Concretes\RoleController;
@@ -39,6 +40,5 @@ Route::prefix("authorization")->group(function () {
         Route::delete('/{id}', [RolePermissionsController::class, 'destroy']);
 
         Route::get('/role/{id}/permissions', [RolePermissionsController::class, 'getPermissionsByRole']);
-        Route::post('/initialize/{tenantId}', [RolePermissionsController::class, 'initialize']);
     });
 });

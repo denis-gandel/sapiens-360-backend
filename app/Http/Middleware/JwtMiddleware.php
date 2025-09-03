@@ -18,14 +18,17 @@ class JwtMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $except = [
-            'api/auth/login'
+            'api/auth/login',
+            'api/academics/*',
+            'api/users',
+            'api/auth/role-permissions/initialize/*'
         ];
 
         if ($request->is($except)) {
             return $next($request);
         }
 
-        $token = $request->cookie('jwt');
+        $token = $request->cookie('sapiens_360_gwEjbpFRQsyFZm4VVYBTSk5zP7DmM9tpzAAmW1f4FvndB2HvJmyKytdFYkq2bK53');
 
         if (!$token) {
             return response()->json(['message' => 'Unauthenticated.'], 401);

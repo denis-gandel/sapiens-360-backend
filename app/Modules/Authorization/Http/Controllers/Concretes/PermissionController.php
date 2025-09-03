@@ -7,7 +7,7 @@ use App\Modules\Authorization\Services\Concretes\PermissionService;
 
 class PermissionController extends BaseController
 {
-    protected $createRules = [
+    protected array $createRules = [
         'name' => 'required|string|max:255',
         'description' => 'nullable|string|max:255',
         'path' => 'required|string|max:255',
@@ -15,7 +15,7 @@ class PermissionController extends BaseController
         'category_id' => 'required|integer|exists:categories,id'
     ];
 
-    protected $updateRules = [
+    protected array $updateRules = [
         'name' => 'sometimes|string|max:255',
         'description' => 'nullable|string|max:255',
         'path' => 'sometimes|string|max:255',

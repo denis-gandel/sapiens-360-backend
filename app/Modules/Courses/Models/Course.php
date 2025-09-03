@@ -4,6 +4,7 @@ namespace App\Modules\Courses\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Academics\Models\Institute;
+use App\Modules\Calendar\Models\Event;
 
 class Course extends Model
 {
@@ -26,6 +27,7 @@ class Course extends Model
         'subjects' => 'array',
     ];
 
+    // Academics
     public function level()
     {
         return $this->belongsTo(Level::class, 'level_id');
@@ -34,5 +36,11 @@ class Course extends Model
     public function institute()
     {
         return $this->belongsTo(Institute::class, 'tenant_id');
+    }
+
+    // Calendar
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'course_id');
     }
 }
