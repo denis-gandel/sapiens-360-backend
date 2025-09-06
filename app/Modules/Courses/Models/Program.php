@@ -22,6 +22,11 @@ class Program extends Model
         'tenant_id',
     ];
 
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'level_id');
+    }
+
     public function levels()
     {
         return $this->hasMany(Level::class, 'program_id');

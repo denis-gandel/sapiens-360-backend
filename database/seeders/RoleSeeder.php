@@ -21,6 +21,7 @@ class RoleSeeder extends Seeder
             ['name' => 'Padre de familia'],
         ];
 
+        DB::table('roles')->truncate();
         DB::table('roles')->insert($roles);
     }
 }

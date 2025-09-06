@@ -18,7 +18,7 @@ class Course extends Model
         'description',
         'code',
         'period',
-        'level_id',
+        'program_id',
         'subjects',
         'tenant_id',
     ];
@@ -28,9 +28,9 @@ class Course extends Model
     ];
 
     // Academics
-    public function level()
+    public function program()
     {
-        return $this->belongsTo(Level::class, 'level_id');
+        return $this->belongsTo(Program::class, 'program_id');
     }
 
     public function institute()
