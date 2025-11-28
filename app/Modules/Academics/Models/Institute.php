@@ -25,7 +25,7 @@ class Institute extends Model
         'logo',
         'email',
         'phone',
-        'established_year',
+        'foundation_date',
         'start_date',
         'end_date',
         'type_id',

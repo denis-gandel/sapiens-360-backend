@@ -2,7 +2,7 @@
 
 namespace App\Modules\Authorization\Http\Controllers\Bases;
 
-use App\Http\Controllers\Bases\BaseController;
+use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Authorization\Http\Controllers\Contracts\IRolePermissionsController;
 use App\Modules\Authorization\Services\Concretes\RolePermissionsService;
 use Illuminate\Http\Request;

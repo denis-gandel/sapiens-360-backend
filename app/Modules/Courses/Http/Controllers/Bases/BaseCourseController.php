@@ -2,7 +2,7 @@
 
 namespace App\Modules\Courses\Http\Controllers\Bases;
 
-use App\Http\Controllers\Bases\BaseController;
+use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Courses\Http\Controllers\Contracts\ICourseController;
 use App\Modules\Courses\Services\Concretes\CourseService;
 use Illuminate\Http\Request;

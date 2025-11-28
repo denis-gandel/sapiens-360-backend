@@ -2,7 +2,7 @@
 
 namespace App\Modules\Academics\Http\Controllers\Bases;
 
-use App\Http\Controllers\Bases\BaseController;
+use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Academics\Http\Controllers\Contracts\IInstituteController;
 use App\Modules\Academics\Services\Concretes\InstituteService;
 
@@ -19,7 +19,7 @@ abstract class BaseInstituteController extends BaseController implements IInstit
             'logo' => 'nullable|string|max:255',
             'email' => 'required|string|email|max:255',
             'phone' => 'required|string|max:255',
-            'established_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'foundation_date' => 'required|date',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'type_id' => 'required|integer|exists:types,id',
@@ -37,7 +37,7 @@ abstract class BaseInstituteController extends BaseController implements IInstit
             'logo' => 'string|max:255',
             'email' => 'string|email|max:255',
             'phone' => 'string|max:255',
-            'established_year' => 'integer|min:1900|max:' . date('Y'),
+            'foundation_date' => 'required|date',
             'start_date' => 'date',
             'end_date' => 'date|after:start_date',
             'type_id' => 'integer|exists:types,id',

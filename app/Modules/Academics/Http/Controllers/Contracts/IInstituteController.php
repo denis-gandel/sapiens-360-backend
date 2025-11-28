@@ -2,7 +2,7 @@
 
 namespace App\Modules\Academics\Http\Controllers\Contracts;
 
-use App\Http\Controllers\Contracts\IController;
+use App\Shared\Http\Controllers\Contracts\IController;
 
 interface IInstituteController extends IController
 {

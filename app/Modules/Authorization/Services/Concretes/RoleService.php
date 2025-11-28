@@ -3,7 +3,7 @@
 namespace App\Modules\Authorization\Services\Concretes;
 
 use App\Modules\Authorization\Models\Role;
-use App\Services\Bases\BaseService;
+use App\Shared\Services\Bases\BaseService;
 
 class RoleService extends BaseService
 {

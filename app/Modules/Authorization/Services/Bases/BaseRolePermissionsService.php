@@ -7,7 +7,7 @@ use App\Modules\Authorization\Models\Permission;
 use App\Modules\Authorization\Models\Role;
 use App\Modules\Authorization\Models\RolePermissions;
 use App\Modules\Authorization\Services\Contracts\IRolePermissionsService;
-use App\Services\Bases\BaseService;
+use App\Shared\Services\Bases\BaseService;
 use Illuminate\Support\ItemNotFoundException;
 use InvalidArgumentException;
 

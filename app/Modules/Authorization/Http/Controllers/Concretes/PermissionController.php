@@ -2,7 +2,7 @@
 
 namespace App\Modules\Authorization\Http\Controllers\Concretes;
 
-use App\Http\Controllers\Bases\BaseController;
+use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Authorization\Services\Concretes\PermissionService;
 
 class PermissionController extends BaseController

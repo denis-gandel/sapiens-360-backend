@@ -2,12 +2,13 @@
 
 namespace App\Modules\Users\Http\Controllers\Bases;
 
-use App\Http\Controllers\Bases\BaseController;
+use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Users\Http\Controllers\Contracts\IUserController;
 use App\Modules\Users\Services\Concretes\UserService;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 abstract class BaseUserController extends BaseController implements IUserController
 {
@@ -48,8 +49,22 @@ abstract class BaseUserController extends BaseController implements IUserControl
 
     public function me(Request $request)
     {
-        $userId = $request->attributes->get('user_id');
-        $tenantId = $request->attributes->get('tenant_id');
+        $authorization = $request->header('Authorization');
+
+        if (!$authorization) {
+            return response()->json(['error' => 'Token no proporcionado'], 401);
+        }
+
+        $secret = env('JWT_SECRET');
+
+        $token = JWT::decode($authorization, new Key($secret, 'HS256'));
+
+        $userId = $token->user_id ?? null;
+        $tenantId = $token->tenant_id ?? null;
+
+        if (!$userId || !$tenantId) {
+            return response()->json(['error' => 'Token incompleto'], 401);
+        }
 
         $user = $this->userService->getBy('id', $userId, true, true, ['tenant_id' => $tenantId]);
 

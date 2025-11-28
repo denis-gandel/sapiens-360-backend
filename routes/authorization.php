@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Middleware\JwtMiddleware;
 use App\Modules\Authorization\Http\Controllers\Concretes\CategoryController;
 use App\Modules\Authorization\Http\Controllers\Concretes\PermissionController;
 use App\Modules\Authorization\Http\Controllers\Concretes\RoleController;
 use App\Modules\Authorization\Http\Controllers\Concretes\RolePermissionsController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix("authorization")->middleware(JwtMiddleware::class)->group(function () {
+Route::prefix("authorization")->group(function () {
     Route::prefix('roles')->group(function () {
         Route::get('/', [RoleController::class, 'index']);
         Route::get('/by', [RoleController::class, 'show']);

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Users\Http\Controllers\Contracts;
 
-use App\Http\Controllers\Contracts\IController;
+use App\Shared\Http\Controllers\Contracts\IController;
 use Illuminate\Http\Request;
 
 interface IUserController extends IController
