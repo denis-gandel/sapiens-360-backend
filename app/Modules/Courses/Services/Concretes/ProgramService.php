@@ -3,7 +3,7 @@
 namespace App\Modules\Courses\Services\Concretes;
 
 use App\Modules\Courses\Models\Program;
-use App\Services\Bases\BaseService;
+use App\Shared\Services\Bases\BaseService;
 
 class ProgramService extends BaseService
 {

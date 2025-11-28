@@ -30,15 +30,4 @@ Route::prefix("authorization")->group(function () {
         Route::put('/{id}', [PermissionController::class, 'update']);
         Route::delete('/{id}', [PermissionController::class, 'destroy']);
     });
-
-    Route::prefix('role-permissions')->group(function () {
-        Route::get('/', [RolePermissionsController::class, 'index']);
-        Route::get('/by', [RolePermissionsController::class, 'show']);
-        Route::post('/', [RolePermissionsController::class, 'store']);
-        Route::put('/{id}', [RolePermissionsController::class, 'update']);
-        Route::delete('/{id}', [RolePermissionsController::class, 'destroy']);
-
-        Route::get('/role/{id}/permissions', [RolePermissionsController::class, 'getPermissionsByRole']);
-        Route::post('/initialize/{tenantId}', [RolePermissionsController::class, 'initialize']);
-    });
 });

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Authentication\Http\Controllers\Bases;
 
-use App\Http\Controllers\Controller;
+use App\Shared\Http\Controllers\Controller;
 use App\Modules\Authentication\Http\Controllers\Contracts\IAuthenticationController;
 use App\Modules\Authentication\Services\Concretes\AuthenticationService;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ abstract class BaseAuthenticationController extends Controller implements IAuthe
     public function login(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required',
         ]);
 
@@ -32,6 +32,8 @@ abstract class BaseAuthenticationController extends Controller implements IAuthe
         $password = $request->input('password');
 
         $jwt = $this->service->login($email, $password);
-        return response()->json($jwt, 201);
+
+        return response()
+            ->json(['message' => 'Login exitoso', 'jwt' => $jwt]);
     }
 }

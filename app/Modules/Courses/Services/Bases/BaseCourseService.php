@@ -5,7 +5,7 @@ namespace App\Modules\Courses\Services\Bases;
 use App\Modules\Courses\Models\Course;
 use App\Modules\Courses\Models\Subject;
 use App\Modules\Courses\Services\Contracts\ICourseService;
-use App\Services\Bases\BaseService;
+use App\Shared\Services\Bases\BaseService;
 
 abstract class BaseCourseService extends BaseService implements ICourseService
 {

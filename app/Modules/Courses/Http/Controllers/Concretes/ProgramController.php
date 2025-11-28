@@ -2,7 +2,7 @@
 
 namespace App\Modules\Courses\Http\Controllers\Concretes;
 
-use App\Http\Controllers\Bases\BaseController;
+use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Courses\Services\Concretes\ProgramService;
 
 class ProgramController extends BaseController
@@ -11,8 +11,8 @@ class ProgramController extends BaseController
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
         'code' => 'required|string|max:255',
-        'degree_type' => 'required|string|max:255',
-        'duration_type' => 'required|string|max:255',
+        'degree_type' => 'string|max:255',
+        'duration_type' => 'string|max:255',
         'periods' => 'required|integer',
         'tenant_id' => 'required|uuid|exists:institutes,id',
     ];

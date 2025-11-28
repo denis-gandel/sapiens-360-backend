@@ -2,7 +2,7 @@
 
 namespace App\Modules\Courses\Http\Controllers\Concretes;
 
-use App\Http\Controllers\Bases\BaseController;
+use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Courses\Services\Concretes\LevelService;
 
 class LevelController extends BaseController
