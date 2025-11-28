@@ -7,7 +7,7 @@ use App\Modules\Authorization\Models\Permission;
 use App\Modules\Authorization\Models\Role;
 use App\Modules\Authorization\Models\RolePermissions;
 use App\Modules\Authorization\Services\Contracts\IRolePermissionsService;
-use App\Services\Bases\BaseService;
+use App\Shared\Services\Bases\BaseService;
 use Illuminate\Support\ItemNotFoundException;
 use InvalidArgumentException;
 
@@ -99,8 +99,8 @@ abstract class BaseRolePermissionsService extends BaseService implements IRolePe
         $permissionsToRole = [
             1 => [3, 5, 11], // student
             2 => [2, 3, 4, 5, 12], // teacher
-            3 => [1, 3, 4, 6, 7, 8, 10], // admin
-            4 => [1, 3, 4, 6, 7, 8, 9, 10], // principal
+            3 => [1, 3, 4, 6, 7, 8, 10, 13, 14, 15], // admin
+            4 => [1, 3, 4, 6, 7, 8, 9, 10, 13, 14, 15], // principal
             5 => [], // parent
         ];
 

@@ -3,6 +3,7 @@
 namespace App\Modules\Academics\Models;
 
 use App\Modules\Authorization\Models\RolePermissions;
+use App\Modules\Calendar\Models\Event;
 use App\Modules\Courses\Models\Course;
 use App\Modules\Courses\Models\Level;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +25,7 @@ class Institute extends Model
         'logo',
         'email',
         'phone',
-        'established_year',
+        'foundation_date',
         'start_date',
         'end_date',
         'type_id',
@@ -104,5 +105,11 @@ class Institute extends Model
     public function rolePermissions()
     {
         return $this->hasMany(RolePermissions::class, 'tenant_id');
+    }
+
+    // Calendar
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'tenant_id');
     }
 }

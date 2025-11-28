@@ -2,7 +2,7 @@
 
 namespace App\Modules\Courses\Http\Controllers\Bases;
 
-use App\Http\Controllers\Bases\BaseController;
+use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Courses\Http\Controllers\Contracts\ICourseController;
 use App\Modules\Courses\Services\Concretes\CourseService;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ abstract class BaseCourseController extends BaseController implements ICourseCon
         'description' => 'nullable|string',
         'code' => 'required|string|max:255',
         'period' => 'required|integer',
-        'level_id' => 'required|uuid|exists:levels,id',
+        'program_id' => 'required|uuid|exists:programs,id',
         'subjects' => 'nullable|array',
         'subjects.*' => 'uuid|exists:subjects,id',
         'tenant_id' => 'required|uuid|exists:institutes,id',
@@ -25,7 +25,7 @@ abstract class BaseCourseController extends BaseController implements ICourseCon
         'description' => 'nullable|string',
         'code' => 'sometimes|required|string|max:255',
         'period' => 'sometimes|required|integer',
-        'level_id' => 'sometimes|required|uuid|exists:levels,id',
+        'program_id' => 'sometimes|required|uuid|exists:programs,id',
         'subjects' => 'nullable|array',
         'subjects.*' => 'uuid|exists:subjects,id',
         'tenant_id' => 'sometimes|required|uuid|exists:institutes,id',

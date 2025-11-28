@@ -21,11 +21,6 @@ class Level extends Model
         'program_id',
     ];
 
-    public function courses()
-    {
-        return $this->hasMany(Course::class, 'level_id');
-    }
-
     public function program()
     {
         return $this->belongsTo(Program::class, 'program_id');

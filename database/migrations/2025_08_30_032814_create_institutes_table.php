@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('email')->unique();
             $table->string('phone');
-            $table->integer('established_year');
+            $table->date('foundation_date');
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('type_id');

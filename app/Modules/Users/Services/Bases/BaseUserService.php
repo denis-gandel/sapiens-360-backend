@@ -4,7 +4,7 @@ namespace App\Modules\Users\Services\Bases;
 
 use App\Modules\Users\Models\User;
 use App\Modules\Users\Services\Contracts\IUserService;
-use App\Services\Bases\BaseService;
+use App\Shared\Services\Bases\BaseService;
 use Illuminate\Support\Facades\Hash;
 
 abstract class BaseUserService extends BaseService implements IUserService
@@ -29,7 +29,7 @@ abstract class BaseUserService extends BaseService implements IUserService
                 $user->name = $data['lastnames'] . ' ' . $data['firstnames'];
                 $user->firstnames = $data['firstnames'];
                 $user->lastnames = $data['lastnames'];
-                $user->shortname = $data['shortname'];
+                $user->shortname = $this->getShortname($data['firstnames'], $data['lastnames']);
                 $user->code = $data['code'] ?? $user->code;
                 $user->ci = $data['ci'];
                 $user->image_url = $data['image_url'] ?? $user->image_url;
@@ -43,6 +43,7 @@ abstract class BaseUserService extends BaseService implements IUserService
 
         $data['password'] = Hash::make($data['password']);
         $data['name'] = $data['lastnames'] . ' ' . $data['firstnames'];
+        $data['shortname'] = $this->getShortname($data['firstnames'], $data['lastnames']);
         return User::create($data);
     }
 
@@ -55,7 +56,9 @@ abstract class BaseUserService extends BaseService implements IUserService
         }
 
         if (!empty($data['password'])) {
+            $data['name'] = $data['lastnames'] . ' ' . $data['firstnames'];
             $data['password'] = Hash::make($data['password']);
+            $data['shortname'] = $this->getShortname($data['firstnames'], $data['lastnames']);
         }
 
         $user->fill($data);
@@ -73,5 +76,16 @@ abstract class BaseUserService extends BaseService implements IUserService
         }
 
         return $user;
+    }
+
+    private function getShortname(string $firstnames, string $lastnames): string
+    {
+        $firstnamesArray = explode(' ', trim($firstnames));
+        $lastnamesArray = explode(' ', trim($lastnames));
+
+        $firstname = $firstnamesArray[0] ?? '';
+        $lastname = $lastnamesArray[0] ?? '';
+
+        return trim("$lastname $firstname");
     }
 }

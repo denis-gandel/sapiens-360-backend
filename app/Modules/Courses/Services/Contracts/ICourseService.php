@@ -2,7 +2,7 @@
 
 namespace App\Modules\Courses\Services\Contracts;
 
-use App\Services\Contracts\IService;
+use App\Shared\Services\Contracts\IService;
 
 interface ICourseService extends IService
 {

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Authorization\Http\Controllers\Contracts;
 
-use App\Http\Controllers\Contracts\IController;
+use App\Shared\Http\Controllers\Contracts\IController;
 use Illuminate\Http\Request;
 
 interface IRolePermissionsController extends IController

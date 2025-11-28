@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('code');
             $table->integer('period');
-            $table->uuid('level_id');
+            $table->uuid('program_id');
             $table->boolean('is_active')->default(true);
             $table->json('subjects')->nullable();
             $table->timestamps();
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->uuid('tenant_id');
 
             $table->foreign('tenant_id')->references('id')->on('institutes')->onDelete('cascade');
-            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
+            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
         });
     }
 

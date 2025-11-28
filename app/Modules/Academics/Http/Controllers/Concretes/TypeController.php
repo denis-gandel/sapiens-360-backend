@@ -2,7 +2,7 @@
 
 namespace App\Modules\Academics\Http\Controllers\Concretes;
 
-use App\Http\Controllers\Bases\BaseController;
+use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Academics\Services\Concretes\TypeService;
 
 class TypeController extends BaseController

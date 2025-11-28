@@ -1,7 +1,7 @@
 services:
     sapiens-db:
         image: postgres:latest
-        container_name: postgres
+        container_name: sapiens-db
         environment:
             POSTGRES_USER: ${DB_USERNAME}
             POSTGRES_PASSWORD: ${DB_PASSWORD}

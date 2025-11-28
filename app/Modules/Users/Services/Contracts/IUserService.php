@@ -2,7 +2,7 @@
 
 namespace App\Modules\Users\Services\Contracts;
 
-use App\Services\Contracts\IService;
+use App\Shared\Services\Contracts\IService;
 
 interface IUserService extends IService
 {

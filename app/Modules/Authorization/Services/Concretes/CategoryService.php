@@ -3,7 +3,7 @@
 namespace App\Modules\Authorization\Services\Concretes;
 
 use App\Modules\Authorization\Models\Category;
-use App\Services\Bases\BaseService;
+use App\Shared\Services\Bases\BaseService;
 
 class CategoryService extends BaseService
 {

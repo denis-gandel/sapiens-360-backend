@@ -2,7 +2,7 @@
 
 namespace App\Modules\Authorization\Services\Contracts;
 
-use App\Services\Contracts\IService;
+use App\Shared\Services\Contracts\IService;
 
 interface IRolePermissionsService extends IService
 {

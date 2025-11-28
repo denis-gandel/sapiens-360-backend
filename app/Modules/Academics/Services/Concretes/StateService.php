@@ -3,7 +3,7 @@
 namespace App\Modules\Academics\Services\Concretes;
 
 use App\Modules\Academics\Models\State;
-use App\Services\Bases\BaseService;
+use App\Shared\Services\Bases\BaseService;
 
 class StateService extends BaseService
 {

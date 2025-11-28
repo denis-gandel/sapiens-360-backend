@@ -73,5 +73,7 @@ Route::prefix("academics")->group(function () {
         Route::post('/', [InstituteController::class, 'store']);
         Route::put('/{id}', [InstituteController::class, 'update']);
         Route::delete('/{id}', [InstituteController::class, 'destroy']);
+
+        Route::get('/subdomain/{subdomain}', [InstituteController::class, 'verifySubdomain']);
     });
 });

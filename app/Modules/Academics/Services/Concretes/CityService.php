@@ -3,7 +3,7 @@
 namespace App\Modules\Academics\Services\Concretes;
 
 use App\Modules\Academics\Models\City;
-use App\Services\Bases\BaseService;
+use App\Shared\Services\Bases\BaseService;
 
 class CityService extends BaseService
 {
