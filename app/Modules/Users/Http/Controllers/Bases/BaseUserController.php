@@ -5,6 +5,8 @@ namespace App\Modules\Users\Http\Controllers\Bases;
 use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Users\Http\Controllers\Contracts\IUserController;
 use App\Modules\Users\Services\Concretes\UserService;
+use App\Shared\Models\Responses\Concretes\FailedResponse;
+use App\Shared\Models\Responses\Concretes\SuccessResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Firebase\JWT\JWT;
@@ -32,7 +34,8 @@ abstract class BaseUserController extends BaseController implements IUserControl
         ]);
 
         if ($validate->fails()) {
-            return response()->json(['errors' => $validate->errors()], 422);
+            $response = new FailedResponse(422, 'Invalid email or password', $validate->errors());
+            return $response->toResponse();
         }
 
         $email = $request->input('email');
@@ -41,10 +44,12 @@ abstract class BaseUserController extends BaseController implements IUserControl
         $user = $this->userService->verifyCredentials($email, $password);
 
         if (!$user) {
-            return response()->json(['error' => 'Invalid credentials'], 401);
+            $response = new FailedResponse(401, 'Invalid credentials', null);
+            return $response->toResponse();
         }
 
-        return response()->json(['user' => $user], 200);
+        $response = new SuccessResponse(200, 'Login successful', $user);
+        return $response->toResponse();
     }
 
     public function me(Request $request)
@@ -52,7 +57,8 @@ abstract class BaseUserController extends BaseController implements IUserControl
         $authorization = $request->header('Authorization');
 
         if (!$authorization) {
-            return response()->json(['error' => 'Token no proporcionado'], 401);
+            $response = new FailedResponse(401, 'Token no proporcionado', null);
+            return $response->toResponse();
         }
 
         $secret = env('JWT_SECRET');
@@ -63,15 +69,18 @@ abstract class BaseUserController extends BaseController implements IUserControl
         $tenantId = $token->tenant_id ?? null;
 
         if (!$userId || !$tenantId) {
-            return response()->json(['error' => 'Token incompleto'], 401);
+            $response = new FailedResponse(401, 'Token incompleto', null);
+            return $response->toResponse();
         }
 
         $user = $this->userService->getBy('id', $userId, true, true, ['tenant_id' => $tenantId]);
 
         if (!$user) {
-            return response()->json(['error' => 'Usuario no encontrado'], 404);
+            $response = new FailedResponse(404, 'User not found', null);
+            return $response->toResponse();
         }
 
-        return response()->json($user, 200);
+        $response = new SuccessResponse(200, 'User found', $user);
+        return $response->toResponse();
     }
 }

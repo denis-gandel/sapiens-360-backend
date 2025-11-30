@@ -4,10 +4,14 @@ namespace App\Shared\Http\Controllers\Bases;
 
 use App\Shared\Http\Controllers\Controller;
 use App\Shared\Http\Controllers\Contracts\IController;
+use App\Shared\Models\Responses\Concretes\FailedResponse;
+use App\Shared\Models\Responses\Concretes\PaginateResponse;
+use App\Shared\Models\Responses\Concretes\SuccessResponse;
 use App\Shared\Services\Contracts\IService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Exception;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class BaseController extends Controller implements IController
 {
@@ -37,7 +41,22 @@ abstract class BaseController extends Controller implements IController
 
         $data = $this->service->getAll($direction, $filters, $orderBy, $page, $size);
 
-        return response()->json($data, 200);
+        if ($data instanceof LengthAwarePaginator) {
+            $response = new PaginateResponse(
+                200,
+                'Data correctly obtained',
+                $data->items(),
+                $data->currentPage(),
+                $data->lastPage(),
+                $data->perPage(),
+                $data->total()
+            );
+
+            return $response->toResponse();
+        }
+
+        $response = new SuccessResponse(200, 'Data correctly obtained', $data);
+        return $response->toResponse();
     }
 
     public function show(Request $request)
@@ -49,16 +68,19 @@ abstract class BaseController extends Controller implements IController
         $filters = $request->query('filters') ?? [];
 
         if (!$column || !$value) {
-            return response()->json(['message' => 'Column and value are required'], 400);
+            $response = new FailedResponse(400, 'Column and value are required', null);
+            return $response->toResponse();
         }
 
         $data = $this->service->getBy($column, $value, $fail, $onlyActive, $filters);
 
         if (!$data) {
-            return response()->json(['message' => 'Entity not found'], 404);
+            $response = new FailedResponse(404, 'Entity not found', null);
+            return $response->toResponse();
         }
 
-        return response()->json($data, 200);
+        $response = new SuccessResponse(200, 'Data correctly obtained', $data);
+        return $response->toResponse();
     }
 
     public function store(Request $request)
@@ -69,15 +91,18 @@ abstract class BaseController extends Controller implements IController
         );
 
         if ($validate->fails()) {
-            return response()->json(['errors' => $validate->errors()], 422);
+            $response = new FailedResponse(422, 'Verify the data sent', $validate->errors());
+            return $response->toResponse();
         }
 
         try {
             $data = $this->service->create($request->all(), null);
 
-            return response()->json($data, 201);
+            $response = new SuccessResponse(201, 'Object successfully created', $data);
+            return $response->toResponse();
         } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
+            $response = new FailedResponse(400, $e->getMessage(), null);
+            return $response->toResponse();
         }
     }
 
@@ -89,15 +114,18 @@ abstract class BaseController extends Controller implements IController
         );
 
         if ($validate->fails()) {
-            return response()->json(['errors' => $validate->errors()], 422);
+            $response = new FailedResponse(422, 'Verify the data sent', $validate->errors());
+            return $response->toResponse();
         }
 
         try {
             $data = $this->service->update($id, $request->all(), null);
 
-            return response()->json($data, 200);
+            $response = new SuccessResponse(200, 'Object successfully updated', $data);
+            return $response->toResponse();
         } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
+            $response = new FailedResponse(400, $e->getMessage(), null);
+            return $response->toResponse();
         }
     }
 
@@ -106,9 +134,11 @@ abstract class BaseController extends Controller implements IController
         try {
             $this->service->delete($id);
 
-            return response()->json(['message' => "Entity deleted"], 200);
+            $response = new SuccessResponse(200, 'Object successfully deleted', null);
+            return $response->toResponse();
         } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
+            $response = new FailedResponse(400, $e->getMessage(), null);
+            return $response->toResponse();
         }
     }
 }

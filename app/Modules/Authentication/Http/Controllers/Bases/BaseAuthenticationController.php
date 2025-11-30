@@ -5,6 +5,8 @@ namespace App\Modules\Authentication\Http\Controllers\Bases;
 use App\Shared\Http\Controllers\Controller;
 use App\Modules\Authentication\Http\Controllers\Contracts\IAuthenticationController;
 use App\Modules\Authentication\Services\Concretes\AuthenticationService;
+use App\Shared\Models\Responses\Concretes\FailedResponse;
+use App\Shared\Models\Responses\Concretes\SuccessResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,7 +27,8 @@ abstract class BaseAuthenticationController extends Controller implements IAuthe
         ]);
 
         if ($validate->fails()) {
-            return response()->json($validate->errors(), 422);
+            $response = new FailedResponse(422, 'Verify the data sent', $validate->errors());
+            return $response->toResponse();
         }
 
         $email = $request->input('email');
@@ -33,7 +36,7 @@ abstract class BaseAuthenticationController extends Controller implements IAuthe
 
         $jwt = $this->service->login($email, $password);
 
-        return response()
-            ->json(['message' => 'Login exitoso', 'jwt' => $jwt]);
+        $response = new SuccessResponse(200, 'Login exitoso', $jwt);
+        return $response->toResponse();
     }
 }

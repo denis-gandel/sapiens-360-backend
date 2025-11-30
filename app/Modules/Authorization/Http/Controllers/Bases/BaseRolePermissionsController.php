@@ -5,6 +5,8 @@ namespace App\Modules\Authorization\Http\Controllers\Bases;
 use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Authorization\Http\Controllers\Contracts\IRolePermissionsController;
 use App\Modules\Authorization\Services\Concretes\RolePermissionsService;
+use App\Shared\Models\Responses\Concretes\FailedResponse;
+use App\Shared\Models\Responses\Concretes\SuccessResponse;
 use Illuminate\Http\Request;
 
 abstract class BaseRolePermissionsController extends BaseController implements IRolePermissionsController
@@ -36,14 +38,17 @@ abstract class BaseRolePermissionsController extends BaseController implements I
         $tenant = $request->query('tenant');
 
         if (!$tenant) {
-            return response()->json(['error' => 'Tenant ID is required'], 400);
+            $response = new FailedResponse(400, 'Tenant parameter is required', null);
+            return $response->toResponse();
         }
 
         try {
-            $permissions = $this->rolePermissionsService->getPermissionsByRole($id, $tenant);
-            return response()->json($permissions, 200);
+            $data = $this->rolePermissionsService->getPermissionsByRole($id, $tenant);
+            $response = new SuccessResponse(200, 'Data correctly obtained', $data);
+            return $response->toResponse();
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            $response = new FailedResponse(400, $e->getMessage(), null);
+            return $response->toResponse();
         }
     }
 
@@ -51,9 +56,11 @@ abstract class BaseRolePermissionsController extends BaseController implements I
     {
         try {
             $this->rolePermissionsService->initialize($tenantId);
-            return response()->json(['message' => 'Role permissions initialized successfully'], 201);
+            $response = new SuccessResponse(201, 'Role permissions initialized successfully', null);
+            return $response->toResponse();
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            $response = new FailedResponse(400, $e->getMessage(), null);
+            return $response->toResponse();
         }
     }
 }

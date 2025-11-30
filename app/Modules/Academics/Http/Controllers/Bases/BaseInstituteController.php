@@ -5,6 +5,7 @@ namespace App\Modules\Academics\Http\Controllers\Bases;
 use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Academics\Http\Controllers\Contracts\IInstituteController;
 use App\Modules\Academics\Services\Concretes\InstituteService;
+use App\Shared\Models\Responses\Concretes\SuccessResponse;
 
 abstract class BaseInstituteController extends BaseController implements IInstituteController
 {
@@ -57,6 +58,7 @@ abstract class BaseInstituteController extends BaseController implements IInstit
     {
         $result = $this->instituteService->getBy('subdomain', $subdomain, false);
 
-        return $result ? true : false;
+        $response = new SuccessResponse(200, 'Verified subdomain', $result ? true : false);
+        return $response->toResponse();
     }
 }

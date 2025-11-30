@@ -5,6 +5,8 @@ namespace App\Modules\Courses\Http\Controllers\Bases;
 use App\Shared\Http\Controllers\Bases\BaseController;
 use App\Modules\Courses\Http\Controllers\Contracts\ICourseController;
 use App\Modules\Courses\Services\Concretes\CourseService;
+use App\Shared\Models\Responses\Concretes\FailedResponse;
+use App\Shared\Models\Responses\Concretes\SuccessResponse;
 use Illuminate\Http\Request;
 
 abstract class BaseCourseController extends BaseController implements ICourseController
@@ -43,9 +45,12 @@ abstract class BaseCourseController extends BaseController implements ICourseCon
         $tenant = $request->query('tenant');
 
         if (!$tenant) {
-            return response()->json(['error' => 'Tenant parameter is required'], 400);
+            $response = new FailedResponse(400, 'Tenant parameter is required', null);
+            return $response->toResponse();
         }
 
-        return $this->courseService->getSubjects($id, $tenant);
+        $data = $this->courseService->getSubjects($id, $tenant);
+        $response = new SuccessResponse(200, 'Data correctly obtained', $data);
+        return $response->toResponse();
     }
 }
